@@ -1,15 +1,15 @@
 /**
- * 
+ *
  */
-;(function(window, $, undefined) {
+(function(window, $) {
 
-var Gfr = function(options) {
+var Gfr = function(opts) {
   var _this = this;
-  
-  var options = $.extend(options, {
+
+  var options = $.extend(opts, {
     preserveAspectRatio: true
   });
-  
+
   _this.$el = options.$el || $('.gif');
   _this.imgSrc = _this.$el.data('src');
 
@@ -17,7 +17,7 @@ var Gfr = function(options) {
   if ( !_this.imgSrc )
     return;
 
-  _this.containerHeight = _this.$el.height();
+  _this.containerHeight = _this.$el.outerHeight();
   _this.containerWidth = _this.$el.width();
 
   _this.counter = 0;
@@ -45,7 +45,7 @@ var Gfr = function(options) {
       _this.positionFrame( _this.frameCount() - pointer );
 
       clearTimeout( _this.activity );
-      
+
       _this.activity = setTimeout(function() {
         _this.start();
       }, 500 );
@@ -59,7 +59,7 @@ Gfr.prototype.map = function(value, istart, istop, ostart, ostop) {
 Gfr.prototype.frameCount = function() {
   return this.img.width / this.imgWidth;
 }
-  
+
 Gfr.prototype.setup = function() {
   var _this = this;
 
@@ -73,7 +73,7 @@ Gfr.prototype.setup = function() {
 
 Gfr.prototype.assignImage = function(src) {
   var _this = this;
-  
+
   _this.img.src = src;
 
   this.img.onload = function() {
@@ -121,25 +121,14 @@ Gfr.prototype.progressFrame = function() {
   var _this = this;
 
   _this.positionFrame( _this.counter );
- 
+
   if (_this.counter <= _this.frameCount() ){
       _this.counter++;
   } else {
       _this.counter = 0;
-     // _this.changeImage();
   }
 }
 
-Gfr.prototype.changeImage = function() {
-  var _this = this;
-
-  _this.imgPointer = _this.imgPointer + 1 >= images.length ? 0 : _this.imgPointer + 1;
-
-  this.assignImage( images[_this.imgPointer] )
-};
-
-
 var g = new Gfr();
-
 
 }(window, window.jQuery))

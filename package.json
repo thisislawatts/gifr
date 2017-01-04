@@ -1,0 +1,19 @@
+{
+  "name": "gifr",
+  "version": "1.0.0",
+  "description": "Gifr",
+  "main": "gifr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thisislawatts/gifr.git"
+  },
+  "author": "Luke Watts <luke@thisis.la>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thisislawatts/gifr/issues"
+  },
+  "homepage": "https://github.com/thisislawatts/gifr#readme"
+}
