@@ -15,7 +15,7 @@ var Gfr = function(opts) {
 
   // Specifics
   _this.originalFrameWidth = _this.frameWidth = 1920,
-  _this.originalFrameHeight = _this.frameHeight = 720;
+  _this.originalFrameHeight = _this.frameHeight = 698;
   _this.imgRatio = this.frameWidth / this.frameHeight;
 
   _this.$el = _this.options.$el || $('.gif');
