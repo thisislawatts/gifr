@@ -10,17 +10,17 @@ var Gfr = function(opts) {
     autoPlay: false,
     positioning: '50% 50%',
     preserveAspectRatio: true,
+    sizeToFit: true
   }, opts);
 
   // Specifics
-  _this.imgWidth = 1920,
-  _this.imgHeight = 720;
-  _this.imgRatio = this.imgWidth / this.imgHeight;
-
+  _this.originalFrameWidth = _this.frameWidth = 1920,
+  _this.originalFrameHeight = _this.frameHeight = 720;
+  _this.imgRatio = this.frameWidth / this.frameHeight;
 
   _this.$el = _this.options.$el || $('.gif');
   _this.imgSrc = _this.$el.data('src');
-  _this.$filmStrip = $('<img src="' + _this.$el.data('src') +'" style="' + _this.getFilmstripStyles() + '"/>');
+  _this.$filmStrip = $('<img src="' + _this.$el.data('src') +'"/>');
 
   _this.$el.append(_this.$filmStrip);
 
@@ -59,15 +59,30 @@ var Gfr = function(opts) {
 }
 
 Gfr.prototype.getFilmstripStyles = function() {
-
+  var _this = this;
   var css = ['position:relative'];
   var positioning = this.options.positioning.split(' ');
 
+  if (this.options.sizeToFit ){
+    var coverDimensions = _this.coverDimensions(_this.frameWidth, _this.frameHeight, _this.$el.outerWidth(), _this.$el.outerHeight());
+
+    console.log('Size to fit?', coverDimensions, this.$el.outerHeight() );
+    // Increase frame
+    _this.frameWidth = coverDimensions.width;
+    _this.frameHeight = coverDimensions.height;
+    console.log('New Width:', coverDimensions.width, _this.frameCount(), coverDimensions.width * _this.frameCount() );
+    _this.$filmStrip.attr('width', coverDimensions.width * _this.frameCount())
+    _this.$filmStrip.attr('height', coverDimensions.height)
+  }
+
   // X
-  css.push('margin-left: ' + (this.$el.outerWidth() - this.imgWidth) * (parseInt(positioning[0])/100)+'px')
+  css.push('margin-left: ' + (_this.$el.outerWidth() - _this.frameWidth) * (parseInt(positioning[0], 10) / 100) + 'px')
 
   // Y
-  css.push('margin-top: ' + (this.$el.outerHeight() - this.imgHeight) * (parseInt(positioning[1])/100)+'px')
+  console.log(_this.$el.outerHeight(), _this.frameHeight);
+  css.push('margin-top: ' + (_this.$el.outerHeight() - _this.frameHeight) * (parseInt(positioning[1], 10) / 100) + 'px')
+
+  console.log(css.join(';'));
 
   return css.join(';');
 }
@@ -78,7 +93,7 @@ Gfr.prototype.map = function(value, istart, istop, ostart, ostop) {
 
 Gfr.prototype.frameCount = function() {
   // Normalize to allow for zeroIndex;
-  return (this.img.width / this.imgWidth) - 1;
+  return (this.img.width / this.frameWidth) - 1;
 }
 
 Gfr.prototype.setup = function() {
@@ -87,8 +102,8 @@ Gfr.prototype.setup = function() {
   _this.img = new Image();
   _this.is_landscape = ( _this.containerWidth > _this.containerHeight );
   _this.sizing = _this.is_landscape ? _this.containerWidth : _this.containerHeight ;
-  _this.frameWidth = _this.imgWidth;
   _this.assignImage( _this.imgSrc );
+  _this.$filmStrip.attr('style', _this.getFilmstripStyles() );
 }
 
 Gfr.prototype.assignImage = function(src) {
@@ -125,7 +140,6 @@ Gfr.prototype.start = function() {
 Gfr.prototype.positionFrame = function( numberOfFrames ) {
   var _this = this;
 
-  console.log('Position at:', numberOfFrames );
   _this.counter = numberOfFrames;
   _this.$filmStrip.css('transform', 'translateX(' + ((( _this.frameWidth * numberOfFrames )) * -1) +'px)' );
 }
@@ -141,6 +155,20 @@ Gfr.prototype.progressFrame = function() {
       _this.counter = 0;
   }
 }
+
+Gfr.prototype.coverDimensions = function (childWidth, childHeight, containerWidth, containerHeight ) {
+  var scaleFactor = this.max( containerWidth / childWidth, containerHeight / childHeight );
+
+  return {
+    height: Math.ceil(childHeight * scaleFactor),
+    width: Math.ceil(childWidth * scaleFactor)
+  };
+};
+
+Gfr.prototype.max = function( a, b) {
+  return a > b ? a : b;
+};
+
 
   var g = new Gfr();
 
