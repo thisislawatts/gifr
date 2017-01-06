@@ -39,14 +39,35 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 50%;
-  background-repeat: none;
+  bottom: 0;
+}
+
+.caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2em;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 </style>
 </head>
 <body>
-  <div class="gif" data-src="images/lead.png"></div>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <div class="gif" data-src="images/strip.jpg"></div>
+  <div class="caption">
+    <div style="text-align: center">
+      <em>Snakehips — Forever Pt. II</em>
+      <br>
+      dir. SASHINSKI
+    </div>
+  </div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="gifr.js"></script>
 </body>
 </html>
