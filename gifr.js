@@ -8,29 +8,32 @@ var Gfr = function(opts) {
 
   _this.options = $.extend({
     autoPlay: false,
-    preserveAspectRatio: true
+    positioning: '50% 50%',
+    preserveAspectRatio: true,
   }, opts);
+
+  // Specifics
+  _this.imgWidth = 1920,
+  _this.imgHeight = 720;
+  _this.imgRatio = this.imgWidth / this.imgHeight;
+
 
   _this.$el = _this.options.$el || $('.gif');
   _this.imgSrc = _this.$el.data('src');
-  _this.$filmStrip = $('<img src="' + _this.$el.data('src') +'" class="position: relative"/>');
+  _this.$filmStrip = $('<img src="' + _this.$el.data('src') +'" style="' + _this.getFilmstripStyles() + '"/>');
 
   _this.$el.append(_this.$filmStrip);
 
   // Bailout no image found!
-  if ( !_this.imgSrc )
+  if ( !_this.imgSrc ) {
     return;
+  }
 
   _this.containerHeight = _this.$el.outerHeight();
   _this.containerWidth = _this.$el.width();
 
   _this.counter = 0;
   _this.imgPointer = 0;
-
-  // Specifics
-  _this.imgWidth = 1920,
-  _this.imgHeight = 720;
-  _this.imgRatio = this.imgWidth / this.imgHeight;
 
   if ( _this.options.preserveAspectRatio ) {
     _this.containerHeight = _this.containerWidth / _this.imgRatio;
@@ -53,6 +56,20 @@ var Gfr = function(opts) {
         }, 500 );
       }
   });
+}
+
+Gfr.prototype.getFilmstripStyles = function() {
+
+  var css = ['position:relative'];
+  var positioning = this.options.positioning.split(' ');
+
+  // X
+  css.push('margin-left: ' + (this.$el.outerWidth() - this.imgWidth) * (parseInt(positioning[0])/100)+'px')
+
+  // Y
+  css.push('margin-top: ' + (this.$el.outerHeight() - this.imgHeight) * (parseInt(positioning[1])/100)+'px')
+
+  return css.join(';');
 }
 
 Gfr.prototype.map = function(value, istart, istop, ostart, ostop) {
