@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html ldir="ltr" lang="en-US" class="no-js">
+
 <head>
   <meta charset="UTF-8" />
-<!--
+  <!--
 
        BBBBBBBBBBBBBBBBBBB  CCCCCCCCCCCCCCCCCCC        MMMMMMMMMM             HHHHHHHHHM
        B                 B  C                 C      MM          MM         HH          HH
@@ -14,61 +15,75 @@
        B     BB    BB    B  C   CC            C   M   M  M    M  M   M   H     H      H     H
        B     BB    BB    B  C    CC     CC,   C   M   M   M  M   M   M   H     H      H    +H
        B     BBBBBBB     B  C      CCCCC      C    M  M    MM    M  M     H    H      H    H
-       B                 B  C                 C     M,             M       H             HH
-       B                 B  C                 C       MM,        MM         HH          HH
+       B                 B  C                 C     M              M       H             HH
+       B                 B  C                 C       MM         MM         HH          HH
        BBBBBBBBBBBBBBBBBBB  CCCCCCCCCCCCCCCCCCC         MMMMMMMMM             HHHHHHHHHH
 
 	   Bravo Charlie Mike Hotel
 	   http://bcmh.co.uk
 
 -->
-	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Gifr Demo</title>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  overflow: hidden;
-}
-
-.gif {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.caption {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 2em;
-  text-transform: uppercase;
-  pointer-events: none;
-}
-</style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      padding: 1em;
+      font-family: sans-serif;
+    }
+    
+    figure {
+      display: inline-block;
+      width: 45%;
+    }
+    
+    .gif {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-top: 56.25%;
+      overflow: hidden;
+      outline: 1px solid #eee;
+      margin-bottom: 3em;
+    }
+    
+    .caption {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="gif" data-src="images/strip001.jpg"></div>
-  <div class="caption">
-    <div style="text-align: center">
-      <em>Snakehips — Forever Pt. II</em>
-      <br>
-      dir. SASHINSKI
+  <h1>Gifr</h1>
+
+  <figure>
+    <div class="gif" data-src="images/vertical.jpg" data-frame="407x189" data-frameCount="24" data-axis="x" data-source-direction="vertical"
+    /></div>
+  </figure>
+
+  <figure>
+    <div class="gif" data-src="images/horizontal.jpg" data-frame="960x540" data-framecount="62" data-axis="y" />
     </div>
-  </div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </figure>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="gifr.js"></script>
 </body>
+
 </html>
